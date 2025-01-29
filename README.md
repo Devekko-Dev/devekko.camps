@@ -132,4 +132,3 @@ Key environment variables used across services:
 - SSH keys are stored in `./ollama/ollama/`:
   - Private key: `id_ed25519`
   - Public key: `id_ed25519.pub`
-- Example public key:
