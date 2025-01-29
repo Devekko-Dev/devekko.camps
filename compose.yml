@@ -15,7 +15,7 @@ services:
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/stack
     depends_on:
-      - postgres
+      - camps_pgvector_dev
     networks:
       - data
       - internet
@@ -83,7 +83,7 @@ services:
       - internet
       - data
     depends_on:
-      - store_pgvector_dev
+      - camps_pgvector_dev
     ports:
       - "4600:4004"
     environment:
