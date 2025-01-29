@@ -13,6 +13,7 @@ This project utilizes Docker Compose to orchestrate multiple services for develo
 
 ```mermaid
 graph TD
+
     subgraph API Services
         A[camps_fastapi] --> B[camps_pgvector_dev]
     end
@@ -26,9 +27,11 @@ graph TD
         C --> E[camps_ash_dev]
     end
 
-    subgraph Other Services
+    subgraph Development
         E[camps_ash_dev] --> B
     end
+
+```
 
     note "Networks:
     - internet: Public network for external communication
@@ -43,7 +46,8 @@ graph TD
     - SSH keys stored in ./ollama/ollama/
     - Private key: id_ed25519
     - Public key: id_ed25519.pub"
-```
+
+
 
 ## Services Overview
 
