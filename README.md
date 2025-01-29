@@ -43,7 +43,7 @@ graph TD
     - SSH keys stored in ./ollama/ollama/
     - Private key: id_ed25519
     - Public key: id_ed25519.pub"
-
+```
 
 ## Services Overview
 
