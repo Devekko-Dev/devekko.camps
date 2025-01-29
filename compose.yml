@@ -1,0 +1,118 @@
+networks:
+  internet: {}
+  data: {}
+
+services:
+
+  camps_fastapi:
+    build: ./fastapi
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    container_name: camps-fastapi
+    volumes:
+      - ./fastapi:/usr/src/app
+    ports:
+      - 8604:8000
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/stack
+    depends_on:
+      - postgres
+    networks:
+      - data
+      - internet
+
+  camps_cuda:
+    image: nvidia/cuda:12.3.1-base-ubuntu20.04
+    container_name: camps-cuda
+    command: nvidia-smi
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: ["utility"]
+            count: all
+
+  camps_ollama:
+    volumes:
+      - ./ollama/ollama:/root/.ollama
+    container_name: camps-ollama
+    pull_policy: always
+    tty: true
+    restart: unless-stopped
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+    networks:
+      - data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  camps_ash_dev:
+    build:
+      context: ./store
+      dockerfile: ./gpu.Dockerfile
+    container_name: camps-ash-dev
+    develop:
+      watch:
+        - action: sync
+          path: ./camps_ash
+          target: /app
+          # ignore:
+          #   - deps/
+        # - action: rebuild
+        #   path: package.json
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: ["utility"]
+            count: all
+    # volumes:
+    #   - type: bind
+    #     source: ./folkbot
+    #     target: /app
+      # - docker-composer-elixir-mix:/root/.mix
+      # - hex:/root/.hex
+    networks:
+      - internet
+      - data
+    depends_on:
+      - store_pgvector_dev
+    ports:
+      - "4600:4004"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - DATABASE_URL=ecto://admin:cohort9theory+Defy@pgvector/folkbot_prod
+      - SECRET_KEY_BASE="HzhOtUKuruFSjI5Gbl1PjfN68Red9VZ6YDZ9wY687hXnw3RwqwROWTv5JBpxLSwj
+#    command: sleep infinity
+    command:
+      - /app/gpu.sh
+
+  camps_pgvector_dev:
+    image: pgvector/pgvector:pg17
+    container_name: camps-pgvector-dev
+    ports:
+     - 5632:5432
+    networks:
+      - data
+    restart: always
+    environment:
+      - POSTGRES_DB=camps-pgvector-dev
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=bow_Modern$QuoteDear&Genre&Venus
+    volumes:
+      - ./pgvector-init:/docker-entrypoint-initdb.d/
+      - postgres_data:/var/lib/postgresql
+      #- ./folkbot_prod.sql:/docker-entrypoint-initdb.d/folkbot_prod.sql
+    # configs:
+    #   - source: pgvector-init/folkbot_prod.sql
+    #     target: /docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  postgres_data:
