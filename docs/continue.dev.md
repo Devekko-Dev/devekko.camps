@@ -1,0 +1,1 @@
+https://chriskirby.net/run-a-free-ai-coding-assistant-locally-with-vs-code/

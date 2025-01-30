@@ -5,13 +5,18 @@ networks:
 services:
 
   camps_fastapi:
-    build: ./fastapi
+    build: ./camps_fastapi/app
     command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     container_name: camps-fastapi
+    develop:
+      watch:
+        - action: sync
+          path: ./camps_fastapi/app
+          target: /app
     volumes:
-      - ./fastapi:/usr/src/app
+      - ./camps_fastapi/app:/usr/src/app
     ports:
-      - 8604:8000
+      - 8000:8000
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/stack
     depends_on:
@@ -31,14 +36,42 @@ services:
           - capabilities: ["utility"]
             count: all
 
+  camps_ollama_model:
+    volumes:
+      - ./camps_ollama_model/ollama:/root/.ollama
+      - ./camps_ollama_model:/model_files
+    container_name: camps-ollama-model
+    pull_policy: always
+    tty: true
+    restart: unless-stopped
+    image: ollama/ollama:latest
+#    command: ollama run deepseek-r1:671b
+    # entrypoint: ["/bin/sh", "/model_files/run_ollama.sh"]
+    ports:
+      - 11435:11434
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+    networks:
+      - data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
   camps_ollama:
     volumes:
       - ./ollama/ollama:/root/.ollama
+      # - ./model_files:/model_files
     container_name: camps-ollama
     pull_policy: always
     tty: true
     restart: unless-stopped
     image: ollama/ollama:latest
+#    command: ollama run deepseek-r1:671b
+    # entrypoint: ["/bin/sh", "/model_files/run_ollama.sh"]
     ports:
       - 11434:11434
     environment:
@@ -105,7 +138,7 @@ services:
     environment:
       - POSTGRES_DB=camps-pgvector-dev
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=bow_Modern$QuoteDear&Genre&Venus
+      - POSTGRES_PASSWORD=bow_ModernQuoteDearGenre&Venus
     volumes:
       - ./pgvector-init:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql

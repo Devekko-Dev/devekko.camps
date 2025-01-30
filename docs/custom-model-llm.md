@@ -1,0 +1,1 @@
+https://unmesh.dev/post/ollama_custom_model/
