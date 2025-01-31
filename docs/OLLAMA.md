@@ -40,9 +40,9 @@ docker-compose -f compose.yaml up --build
 docker compose up camps_ollama
 docker compose down camps_ollama -v
 
-docker exec -it camps_ollama bash
+docker exec -it camps-ollama bash
 
-ollama run deepseek-r1:70b
+ollama run deepseek-r1:7b
 ollama run mistral-small
 
 
