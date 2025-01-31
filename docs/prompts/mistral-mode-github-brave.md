@@ -10,11 +10,13 @@ To generate a Mistral model code assistant trained on a list of GitHub repositor
 
 ```pip install mistral-common
 pip install transformers
-pip install packaging mamba-ssm causal-conv1d```
+pip install packaging mamba-ssm causal-conv1d
+```
 
 ## Download and Set Up the Mistral Model:
 
 * Download the Mistral model you want to fine-tune. For example, the 7B Instruct model:
+
 ```wget https://models.mistralcdn.com/mistral-7b-v0-3/mistral-7B-Instruct-v0.3.tar
 tar -xvf mistral-7B-Instruct-v0.3.tar
 Set up the environment variables for the model path:
