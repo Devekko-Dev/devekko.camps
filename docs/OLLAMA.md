@@ -44,6 +44,7 @@ docker exec -it camps-ollama bash
 
 ollama run deepseek-r1:7b
 ollama run mistral-small
+ollama run medragondot/Sky-T1-32B-Preview
 
 
 /etc/sysconfig/docker-storage
