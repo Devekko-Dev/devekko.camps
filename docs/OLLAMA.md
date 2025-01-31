@@ -37,4 +37,13 @@ ollama run mymodel
 Build and Run the Docker Compose: Execute the following commands in your terminal to build and run the Docker Compose services:
 docker-compose -f compose.yaml up --build
 
+docker compose up camps_ollama
+docker compose down camps_ollama -v
+
+docker exec -it camps_ollama bash
+
 ollama run deepseek-r1:70b
+ollama run mistral-small
+
+
+/etc/sysconfig/docker-storage
