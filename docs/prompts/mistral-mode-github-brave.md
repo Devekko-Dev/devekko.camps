@@ -7,16 +7,19 @@ To generate a Mistral model code assistant trained on a list of GitHub repositor
 
 ## Install Required Packages:
 * Install the necessary packages for running Mistral models and fine-tuning them:
+
 ```pip install mistral-common
 pip install transformers
-pip install packaging mamba-ssm causal-conv1d
-```
+pip install packaging mamba-ssm causal-conv1d```
+
 ## Download and Set Up the Mistral Model:
-Download the Mistral model you want to fine-tune. For example, the 7B Instruct model:
+
+* Download the Mistral model you want to fine-tune. For example, the 7B Instruct model:
 ```wget https://models.mistralcdn.com/mistral-7b-v0-3/mistral-7B-Instruct-v0.3.tar
 tar -xvf mistral-7B-Instruct-v0.3.tar
 Set up the environment variables for the model path:
-export M7B_DIR=$HOME/mistral_models/mistral-7B-Instruct-v0.3```
+export M7B_DIR=$HOME/mistral_models/mistral-7B-Instruct-v0.3
+```
 
 ## Fine-Tune the Model:
 * Use the mistral-finetune repository to fine-tune the model on your GitHub repository data. Ensure you have the necessary scripts and configurations set up.
