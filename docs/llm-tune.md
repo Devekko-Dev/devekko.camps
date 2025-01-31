@@ -20,6 +20,8 @@ https://huggingface.co/learn/cookbook/en/fine_tuning_code_llm_on_single_gpu
 https://huggingface.co/blog/personal-copilot
 
 
+https://huggingface.co/blog/personal-copilot
+
 
 fine-tune llm for code generation
 
@@ -39,3 +41,12 @@ https://search.brave.com/search?q=fine-tune+llm+for+code+generation&source=deskt
 
 
 https://huggingface.co/learn/cookbook/en/fine_tuning_code_llm_on_single_gpu
+
+
+https://medium.com/@zulqarnain.shahid.iqbal/fine-tuning-code-llms-b06d3f50212e
+
+https://github.com/pacman100/LLM-Workshop/blob/main/personal_copilot/inference/PEFT_Personal_Code_CoPilot_Adapter_Transfer_Octocoder.ipynb
+
+https://github.com/huggingface/blog/blob/main/personal-copilot.md
+
+https://github.com/search?q=hf-stack-v1&type=code
