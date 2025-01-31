@@ -1,6 +1,10 @@
 # Mistral Model GitHub Training
 To generate a Mistral model code assistant trained on a list of GitHub repositories, follow these steps:
 
+## Mistral Fine Tune repo
+* Mistral fine tuning repo
+Source: https://github.com/mistralai/mistral-finetune 
+
 ## Prepare the Training Data:
 * Collect the data from the GitHub repositories you want to train the model on. This can include README files, code snippets, commit messages, and issue descriptions.
 * Format the data into a structured format that the Mistral model can understand, such as JSONL files where each line represents a conversation turn or a code snippet.
