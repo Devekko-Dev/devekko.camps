@@ -17,6 +17,7 @@ Publicly available code LLMs such as Codex, StarCoder, and Code Llama are great 
 In this notebook, we’ll see show how you can fine-tune a code LLM on private code bases to enhance its contextual awareness and improve a model’s usefulness to your organization’s needs. Since the code LLMs are quite large, fine-tuning them in a traditional manner can be resource-draining. Worry not! We will show how you can optimize fine-tuning to fit on a single G
 
 https://huggingface.co/learn/cookbook/en/fine_tuning_code_llm_on_single_gpu
+https://huggingface.co/blog/personal-copilot
 
 
 
